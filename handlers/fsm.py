@@ -52,3 +52,12 @@ async def newquestion(message: types.Message, state: FSMContext):
         await bot.send_message(tehchatid,
                                f"✉ | Новый вопрос\nОт: {who}\nВопрос: `{data['text']}`\n\n📝 Чтобы ответить на вопрос введите `/ответ {message.chat.id} Ваш ответ`",
                                parse_mode='Markdown')
+
+
+async def sleep(message: types.Message):
+    global sleep_mod
+    if message.chat.id == tehchatid:
+        sleep_mod = True
+        await message.reply('Спим')
+    else:
+        return
