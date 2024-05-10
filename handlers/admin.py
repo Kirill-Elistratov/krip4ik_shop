@@ -102,3 +102,9 @@ async def admin_unban(message: types.Message):
                                    parse_mode='Markdown')
     else:
         return
+
+
+def register_handler_admin():
+    dp.register_message_handler(admin_ot, commands=['ответ', 'ot'])
+    dp.register_message_handler(admin_ban, commands=['бан', 'ban'])
+    dp.register_message_handler(admin_unban, commands=['разбан', 'unban'])
