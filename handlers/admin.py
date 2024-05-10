@@ -40,3 +40,36 @@ async def admin_ot(message: types.Message):
                                    parse_mode='Markdown')
     else:
         return
+
+
+async def admin_ban(message: types.Message):
+    if message.chat.id == tehchatid:
+        try:
+            uidown = message.from_user.id
+            args = extract_arg(message.text)
+            if len(args) == 2:
+                uid = int(args[0])
+                reason = args[1]
+                if uid:
+                    banned_users[uid] = True
+                    await message.reply(f'✅ Вы успешно забанили этого пользователя\nПричина: `{reason}`',
+                                        parse_mode='Markdown')
+
+                    await bot.send_message(uid, f"⚠ Администратор *заблокировал* Вас в боте\nПричина: `{reason}`",
+                                           parse_mode='Markdown')
+                    return
+                else:
+                    await message.reply("⚠ Этого пользователя *не* существует!", parse_mode='Markdown')
+                    return
+            else:
+                await message.reply('⚠ Укажите аргументы команды\nПример: `/бан 51623722 Причина`',
+                                    parse_mode='Markdown')
+                return
+        except Exception as e:
+            cid = message.chat.id
+            await message.answer(f"{errormessage}",
+                                 parse_mode='Markdown')
+            await bot.send_message(devid, f"Случилась *ошибка* в чате *{cid}*\nСтатус ошибки: `{e}`",
+                                   parse_mode='Markdown')
+    else:
+        return
