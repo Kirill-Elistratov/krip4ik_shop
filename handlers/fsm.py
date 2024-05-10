@@ -8,6 +8,7 @@ tehchatid = cfg['teh_chat_id']
 message_seneded = cfg['question_ur_question_sended_message']
 sleep_mod = cfg['sleep']
 
+
 class FSMQuestion(StatesGroup):
     text = State()
 
