@@ -101,3 +101,22 @@ async def client_getgroupid(message: types.Message):
                              parse_mode='Markdown')
         await bot.send_message(devid, f"Случилась *ошибка* в чате *{cid}*\nСтатус ошибки: `{e}`",
                                parse_mode='Markdown')
+
+
+async def show_catalog(message: types.Message):
+    try:
+        if check_sub_channel(await bot.get_chat_member(chat_id=channel_username, user_id=message.from_user.id)):
+            user_id = message.from_user.id
+            if user_id in banned_users and banned_users[user_id]:
+                await message.answer(f'{ban_message}', parse_mode="Markdown")
+            else:
+                if message.text == handler_button_catalog:
+                    await bot.send_message(message.from_user.id, f'Список доступных игр 👇', reply_markup=kb.catalogmenu)
+        else:
+            await message.answer(f'{NOTSUBMSG}', reply_markup=kb.checkSubMenu)
+    except Exception as e:
+        cid = message.chat.id
+        await message.answer(f"{errormessage}",
+                             parse_mode='Markdown')
+        await bot.send_message(devid, f"Случилась *ошибка* в чате *{cid}*\nСтатус ошибки: `{e}`",
+                               parse_mode='Markdown')
