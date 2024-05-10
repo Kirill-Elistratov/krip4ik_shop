@@ -1,5 +1,7 @@
 import kb
+from handlers.fsm import *
 from configurebot import cfg
+from handlers.admin import *
 from bans import banned_users
 
 welcomemessage = cfg['welcome_message']
