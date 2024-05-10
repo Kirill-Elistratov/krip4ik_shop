@@ -73,3 +73,32 @@ async def admin_ban(message: types.Message):
                                    parse_mode='Markdown')
     else:
         return
+
+
+async def admin_unban(message: types.Message):
+    if message.chat.id == tehchatid:
+        try:
+            uidown = message.from_user.id
+            args = extract_arg(message.text)
+            if len(args) == 1:
+                uid = int(args[0])
+                if uid:
+                    del banned_users[uid]
+                    await message.reply(f'✅ Вы успешно разблокировали этого пользователя', parse_mode='Markdown')
+                    await bot.send_message(uid, f"⚠ Администратор *разблокировал* Вас в боте!", parse_mode='Markdown')
+                    return
+                else:
+                    await message.reply("⚠ Этого пользователя *не* существует!", parse_mode='Markdown')
+                    return
+            else:
+                await message.reply('⚠ Укажите аргументы команды\nПример: `/разбан 516272834`',
+                                    parse_mode='Markdown')
+                return
+        except Exception as e:
+            cid = message.chat.id
+            await message.answer(f"{errormessage}",
+                                 parse_mode='Markdown')
+            await bot.send_message(devid, f"Случилась *ошибка* в чате *{cid}*\nСтатус ошибки: `{e}`",
+                                   parse_mode='Markdown')
+    else:
+        return
