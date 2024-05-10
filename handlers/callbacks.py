@@ -66,3 +66,12 @@ async def sub_channel_done(message: types.Message):
         await bot.send_message(message.from_user.id, f'Введите /start ещё раз')
     else:
         await bot.send_message(message.from_user.id, f'{NOTSUBMSG}', reply_markup=kb.checkSubMenu)
+
+
+def register_handler_callbacks():
+    dp.register_callback_query_handler(handle_game_actions,
+                                       lambda query: query.data in ['clash_royale_action', 'super_sus_action',
+                                                                    'pubg_mobile_action', 'clash_of_clans_action',
+                                                                    'brawl_stars_action'])
+    dp.register_callback_query_handler(handle_product_actions, lambda query: query.data.startswith('clashroyale'))
+    dp.register_callback_query_handler(sub_channel_done)
