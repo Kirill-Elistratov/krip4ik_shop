@@ -89,3 +89,15 @@ async def client_newquestion(message: types.Message):
                              parse_mode='Markdown')
         await bot.send_message(devid, f"Случилась *ошибка* в чате *{cid}*\nСтатус ошибки: `{e}`",
                                parse_mode='Markdown')
+
+
+async def client_getgroupid(message: types.Message):
+    try:
+        await message.answer(f"Chat id is: *{message.chat.id}*\nYour id is: *{message.from_user.id}*",
+                             parse_mode='Markdown')
+    except Exception as e:
+        cid = message.chat.id
+        await message.answer(f"{errormessage}",
+                             parse_mode='Markdown')
+        await bot.send_message(devid, f"Случилась *ошибка* в чате *{cid}*\nСтатус ошибки: `{e}`",
+                               parse_mode='Markdown')
