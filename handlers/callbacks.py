@@ -58,3 +58,11 @@ async def handle_product_actions(callback_query: types.CallbackQuery):
         await bot.delete_message(callback_query.from_user.id, callback_query.message.message_id)
         await bot.send_message(callback_query.from_user.id,
                                '🛍Ваш товар: Gold pass\n💰Цена: 80₽\n\n✅Вы выбрали товар👆')
+
+
+async def sub_channel_done(message: types.Message):
+    await bot.delete_message(message.from_user.id, message.message.message_id)
+    if check_sub_channel(await bot.get_chat_member(chat_id=channel_username, user_id=message.from_user.id)):
+        await bot.send_message(message.from_user.id, f'Введите /start ещё раз')
+    else:
+        await bot.send_message(message.from_user.id, f'{NOTSUBMSG}', reply_markup=kb.checkSubMenu)
