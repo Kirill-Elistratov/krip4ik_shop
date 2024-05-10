@@ -111,7 +111,8 @@ async def show_catalog(message: types.Message):
                 await message.answer(f'{ban_message}', parse_mode="Markdown")
             else:
                 if message.text == handler_button_catalog:
-                    await bot.send_message(message.from_user.id, f'Список доступных игр 👇', reply_markup=kb.catalogmenu)
+                    await bot.send_message(message.from_user.id, f'Список доступных игр 👇',
+                                           reply_markup=kb.catalogmenu)
         else:
             await message.answer(f'{NOTSUBMSG}', reply_markup=kb.checkSubMenu)
     except Exception as e:
@@ -120,3 +121,10 @@ async def show_catalog(message: types.Message):
                              parse_mode='Markdown')
         await bot.send_message(devid, f"Случилась *ошибка* в чате *{cid}*\nСтатус ошибки: `{e}`",
                                parse_mode='Markdown')
+
+
+def register_handler_client():
+    dp.register_message_handler(client_start, commands='start', state=None)
+    dp.register_message_handler(client_getgroupid, commands='getchatid')
+    dp.register_message_handler(client_newquestion)
+    dp.register_message_handler(show_catalog)
