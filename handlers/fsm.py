@@ -61,3 +61,15 @@ async def sleep(message: types.Message):
         await message.reply('Спим')
     else:
         return
+
+
+async def unsleep(message: types.Message):
+    global sleep_mod
+    if message.chat.id == tehchatid:
+        if sleep_mod:
+            sleep_mod = False
+            await message.reply('Не спим')
+        else:
+            return
+    else:
+        return
