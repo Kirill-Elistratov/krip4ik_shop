@@ -73,3 +73,9 @@ async def unsleep(message: types.Message):
             return
     else:
         return
+
+
+def register_handler_FSM():
+    dp.register_message_handler(newquestion, state=FSMQuestion.text, content_types=['photo', 'text'])
+    dp.register_message_handler(sleep, commands='sleep')
+    dp.register_message_handler(unsleep, commands='unsleep')
